@@ -13,8 +13,43 @@ include 'layout/head.php'
       <div class="row justify-content-between align-items-center">
         <h1 class="d-inline">Stanze dell'hotel</h1>
         <div class="d-inline-block text-right">
-          <a class="btn btn-outline-primary align-text-bottom" href="#">Crea nuova stanza</a>
+          <a class="btn btn-outline-primary align-text-bottom" href="create.php">Crea nuova stanza</a>
         </div>
+      </div>
+      <div class="row">
+        <?php if (!empty($_GET['success'])) {
+          if ($_GET['success'] == 'true') {?>
+            <div class="alert alert-success text-center" style="width: 100%;" role="alert">
+              Stanza creata con successo!
+            </div>
+        <?php }else {?>
+          <div class="alert alert-danger text-center" style="width: 100%;" role="alert">
+            Errore!
+          </div>
+        <?php }
+        } ?>
+        <?php if (!empty($_GET['successModifica'])) {
+          if ($_GET['successModifica'] == 'true') {?>
+            <div class="alert alert-success text-center" style="width: 100%;" role="alert">
+              Stanza modificata con successo!
+            </div>
+        <?php }else {?>
+          <div class="alert alert-danger text-center" style="width: 100%;" role="alert">
+            Errore!
+          </div>
+        <?php }
+        } ?>
+        <?php if (!empty($_GET['successElimina'])) {
+          if ($_GET['successElimina'] == 'true') {?>
+            <div class="alert alert-success text-center" style="width: 100%;" role="alert">
+              Stanza eliminata con successo!
+            </div>
+        <?php }else {?>
+          <div class="alert alert-danger text-center" style="width: 100%;" role="alert">
+            Errore!
+          </div>
+        <?php }
+        } ?>
       </div>
       <div class="row">
         <table class="table">
@@ -34,15 +69,19 @@ include 'layout/head.php'
                     <td><?php echo $row["floor"]; ?></td>
                     <td>
                       <a class="btn btn-outline-info" href="details.php?id=<?php echo $row["id"]; ?>">Visualizza</a>
-                      <a class="btn btn-outline-warning" href="#">Modifica</a>
-                      <a class="btn btn-outline-danger" href="#">Elimina</a>
+                      <a class="btn btn-outline-warning" href="edit.php?id=<?php echo $row["id"]; ?>">Modifica</a>
+                      <a class="btn btn-outline-danger" href="delete.php?id=<?php echo $row["id"]; ?>">Elimina</a>
                     </td>
                   </tr>
             <?php }
               }elseif ($result) { ?>
-                <!-- non ci sono risultati -->
+                <tr>
+                  <td colspan="3">Non ci sono risultati</td>
+                </tr>
             <?php }else {?>
-                <!-- errore -->
+              <tr>
+                <td colspan="3">Si è verificato un errore</td>
+              </tr>
             <?php }
             ?>
           </tbody>
